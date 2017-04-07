@@ -2,6 +2,7 @@ import LandingLayout from '../layouts/LandingLayout'
 import CoreLayout from '../layouts/CoreLayout'
 import Landing from './Landing'
 import SignUp from './SignUp'
+import Jobs from './Jobs'
 
 export const createRoutes = (store) => ({
   path : '/',
@@ -13,7 +14,8 @@ export const createRoutes = (store) => ({
     {
       component : CoreLayout,
       childRoutes: [
-        SignUp
+        SignUp,
+        Jobs
       ]
     }
   ]
