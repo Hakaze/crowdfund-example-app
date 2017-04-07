@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Button, Search, Menu, Image, Icon } from 'semantic-ui-react'
+import { Link } from 'react-router'
 import logoIcon from './logo.svg'
 import './Navbar.scss'
 
