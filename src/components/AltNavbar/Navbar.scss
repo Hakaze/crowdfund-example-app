@@ -1,0 +1,16 @@
+#landing-nav-search {
+  > input {
+    color: #ffffff;
+    background: rgba(0,0,0,.6);
+  }
+}
+
+.search-hidden {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.search-visible {
+  opacity: 1;
+  transition: opacity 0.3s;
+}

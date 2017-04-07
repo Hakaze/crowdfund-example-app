@@ -1,0 +1,14 @@
+#core-container {
+  padding-top: 42px;
+  background: lighten(#000000, 5%);
+  height: 100%;
+  overflow: scroll;
+  color: #FFFFFF;
+
+  .inverted.menu, .inverted.segment {
+    background: lighten(#1B1C1D, 3%);
+  }
+  .inverted.segment.secondary {
+    background: lighten(#1B1C1D, 12%);
+  }
+}
