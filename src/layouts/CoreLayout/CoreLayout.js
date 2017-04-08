@@ -28,14 +28,12 @@ class CoreLayout extends React.Component {
   }
 
   render () {
-    const { sidebar } = this.state
     const { children } = this.props
 
-    const pusherCloseable = sidebar ? { onClick: this.closeSidebar } : null
     return (
       <div id='core-container'>
         <Navbar />
-        <div className='ui padded grid'>
+        <div className='ui padded relaxed grid'>
           <div className='four wide column'>
             <Menu vertical inverted fluid>
               <Menu.Item>
