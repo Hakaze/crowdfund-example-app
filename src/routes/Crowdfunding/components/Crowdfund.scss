@@ -1,0 +1,64 @@
+.crowdfund-info-banner {
+  height: 340px;
+  width: 902px;
+  background-image: url('./crowd/learnmore.png');
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.crowdfund-invest {
+  height: 342px;
+  width: 901px;
+  background-image: url('./crowd/investio.png');
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.crowdfund-card {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  text-align: center;
+}
+
+.crowdfund-headline {
+  text-align: center;
+}
+
+.crowdfund-box {
+  border: 1px solid #5f5f5f;
+  border-radius: 8px;
+}
+
+.crowdfund-points {
+  text-align: center;
+  .md-headline {
+    border-bottom: 1px solid #5f5f5f;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    margin-top: 24px;
+  }
+}
+
+.crowdfund-start {
+  text-align: center;
+  .md-headline {
+    margin-bottom: 16px;
+    margin-top: 16px;
+  }
+
+  .md-body-1 {
+    margin-bottom: 16px;
+    margin-top: 16px;
+  }
+}
+
+.faq-title {
+  text-align: center;
+}
+
+.crowdfund-faq {
+  .md-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+}

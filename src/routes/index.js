@@ -6,6 +6,8 @@ import Login from './Login'
 import Profile from './Profile'
 import Jobs from './Jobs'
 import Privacy from './Privacy'
+import Terms from './Terms'
+import Crowdfunding from './Crowdfunding'
 
 export const createRoutes = (store) => ({
   path : '/',
@@ -21,7 +23,9 @@ export const createRoutes = (store) => ({
         SignUp,
         Profile,
         Jobs,
-        Privacy
+        Privacy,
+        Terms,
+        Crowdfunding
       ]
     }
   ]
