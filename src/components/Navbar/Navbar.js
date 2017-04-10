@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Button, Search, Menu, Image, Icon } from 'semantic-ui-react'
+import { Search, Menu, Image } from 'semantic-ui-react'
 import { Link } from 'react-router'
 import logoIcon from './logo.svg'
 import './Navbar.scss'
@@ -15,7 +15,9 @@ const Navbar = ({ sidebarToggle }) => {
   return (
     <Menu size='huge' fixed='top' inverted borderless id='fantank-nav'>
       <Menu.Item>
-        <Image size='small' src={logoIcon} />
+        <Link to='/'>
+          <Image size='small' src={logoIcon} />
+        </Link>
       </Menu.Item>
       <Menu.Item>
         <Search input={inputProps} icon={{ name: 'search', inverted: true }} />

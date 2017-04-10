@@ -8,6 +8,8 @@ const Profile = new Record({
   avatar: null,
   accountType: null,
   artForm: null,
+  bio_about: null,
+  bio_interests: null,
   mainGenre: null,
   otherGenres: null,
   location: null
@@ -29,6 +31,12 @@ const prof1 = new Profile({
   avatar: 'https://lh5.googleusercontent.com/-yBeFfU2wnUQ/AAAAAAAAAAI/AAAAAAAAQwI/E49deHrzbpY/photo.jpg',
   accountType: 'artist',
   artForm: 'music',
+  artFormSubType: 'Vocalist',
+  bio_about: 'Actor/Singer/Writer/Producer/Dancer and self-proclaimed “Artrepreneur” Elijah Rock has left few stones unturned in his quest for performance art excellence since leaving his native Cleveland, Ohio. He not only seeks out challenging creative opportunities, he creates them – in the spotlight and behind the scenes.',
+  bio_interests: [
+    { label: 'Modeling: Fan' },
+    { label: 'Music: Artist - Vocalist | Jazz - Blues - Opera' }
+  ],
   mainGenre: 'Jazz',
   otherGenres: ['Blues', 'Opera'],
   location: 'Los Angeles, CA'

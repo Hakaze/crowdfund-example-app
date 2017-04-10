@@ -4,6 +4,8 @@ import Landing from './Landing'
 import SignUp from './SignUp'
 import Login from './Login'
 import Profile from './Profile'
+import Jobs from './Jobs'
+import Privacy from './Privacy'
 
 export const createRoutes = (store) => ({
   path : '/',
@@ -17,7 +19,9 @@ export const createRoutes = (store) => ({
       childRoutes: [
         Login,
         SignUp,
-        Profile
+        Profile,
+        Jobs,
+        Privacy
       ]
     }
   ]

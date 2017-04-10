@@ -1,46 +1,45 @@
 import React, { Component } from 'react'
-import { Menu, Segment, List } from 'semantic-ui-react'
-import Markdown from 'react-remarkable'
+import { Menu, Segment, List, Breadcrumb, Icon } from 'semantic-ui-react'
+import { Link } from 'react-router'
+import Jobs from '../modules/Jobs'
 
 export default class JobsView extends Component {
   state = { activeItem: 'engineering' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
-  renderEngineering = () => {
+  renderJobs = () => {
+    const { activeItem } = this.state
+    const jobList = Jobs[activeItem].map((j, k) => (
+      <List.Item key={k}>
+        <Link to={`/jobs/${activeItem}/${k}`}>
+          <Icon name='chevron circle right' />
+          {j.title}
+        </Link>
+      </List.Item>
+    ))
     return (
-      <List link>
-        <List.Item active>intern - engineering</List.Item>
-        <List.Item as='a'>senior software engineer</List.Item>
-        <List.Item as='a'>senior data scientist</List.Item>
-        <List.Item as='a'>front end engineer</List.Item>
-        <List.Item as='a'>mobile engineer (ios)</List.Item>
-        <List.Item as='a'>mobile engineer (android)</List.Item>
+      <List relaxed='very' size='large' inverted link>
+        {jobList}
       </List>
     )
   }
 
-  render() {
+  render () {
     const { activeItem } = this.state
-    let content
-    switch(activeItem) {
-      case 'engineering':
-        content = this.renderEngineering()
-      break
-      case 'operations':
-      break
-      case 'creative':
-      break
-    }
     return (
       <div>
-        <h1 className='ui header inverted'>Jobs - Los Angeles</h1>
-        <Menu tabular inverted>
+        <Breadcrumb style={{ marginBottom: '1em' }} size='massive'>
+          <Breadcrumb.Section active>
+            Jobs - Los Angeles
+          </Breadcrumb.Section>
+        </Breadcrumb>
+        <Menu tabular inverted color='blue' attached='top'>
           <Menu.Item name='engineering' active={activeItem === 'engineering'} onClick={this.handleItemClick} />
           <Menu.Item name='operations' active={activeItem === 'operations'} onClick={this.handleItemClick} />
           <Menu.Item name='creative' active={activeItem === 'creative'} onClick={this.handleItemClick} />
         </Menu>
-        <Segment attached='bottom'>{content}</Segment>
+        <Segment padded inverted secondary attached='bottom'>{this.renderJobs()}</Segment>
       </div>
     )
   }

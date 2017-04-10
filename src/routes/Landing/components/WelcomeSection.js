@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Image, Search, Button, Header, Divider, Menu } from 'semantic-ui-react'
+import { Link } from 'react-router'
 import logoBig from './logo-big.svg'
 
 const inputProps = {
@@ -16,7 +17,7 @@ export default class WelcomeSection extends React.Component {
     }
   }
 
-  propTypes = {
+  static propTypes = {
     children: React.PropTypes.node
   }
 
@@ -59,10 +60,18 @@ export default class WelcomeSection extends React.Component {
               </div>
               <div className='sticky-links'>
                 <Menu secondary compact inverted>
-                  <Menu.Item name='Terms'/>
-                  <Menu.Item name='Privacy' />
-                  <Menu.Item name='Jobs' />
-                  <Menu.Item name='Support' />
+                  <Menu.Item>
+                    <Link to='/terms'>Terms</Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Link to='/privacy'>Privacy</Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Link to='/jobs'>Jobs</Link>
+                  </Menu.Item>
+                  <Menu.Item name='Support'>
+                    <Link to='/support'>Support</Link>
+                  </Menu.Item>
                 </Menu>
               </div>
               {children}

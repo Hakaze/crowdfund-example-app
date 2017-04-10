@@ -17,6 +17,51 @@ class ProfileView extends React.Component {
     })
   }
 
+  renderBio = () => {
+    const { profile } = this.props
+    return (
+      <div>
+        <div className='ui padded grid'>
+          <div className='row'>
+            <div className='twelve wide column'>
+              <h2 className='ui header inverted'>Bio</h2>
+              <h5 className='ui header orange'>About Me</h5>
+              <p>{profile.bio_about}</p>
+            </div>
+            <div className='four wide center aligned column'>
+              <Segment inverted>
+                <Statistic size='tiny' inverted color='orange' value='240' label='page views' />
+              </Segment>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='fluid column'>
+              <h5 className='ui header orange'>Interests</h5>
+              <div className='ui list inverted'>
+                {profile.bio_interests.map((v, k) => (
+                  <div className='item' key={k}>{v.label}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className='three column row'>
+            <div className='column'>
+              <h5 className='ui header orange'>Area Focus</h5>
+              {profile.artFormSubType}
+            </div>
+            <div className='column'>
+              <h5 className='ui header orange'>Additional Skills</h5>
+
+            </div>
+            <div className='column'>
+              <h5 className='ui header orange'>General Stats</h5>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    )
+  }
   render () {
     const { profile } = this.props
     const { activeItem } = this.state
@@ -26,6 +71,14 @@ class ProfileView extends React.Component {
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center center',
       height: '372px'
+    }
+    let content
+    switch (activeItem) {
+      case 'bio':
+        content = this.renderBio()
+      break
+      case 'contentScore':
+      break
     }
     return (
       <div className='ui one column grid'>
@@ -40,7 +93,7 @@ class ProfileView extends React.Component {
                     <Item.Content>
                       <Label className='hud-style' size='small' attached='bottom' image color='black'>
                         <Flag name='us' />
-                        Los Angeles, CA
+                        {profile.location}
                       </Label>
                       <h5 className='stage-name'>{profile.stageName}</h5>
                       <Item.Meta>
@@ -62,9 +115,9 @@ class ProfileView extends React.Component {
                         </Label>
                       </Item.Meta>
                       <Item.Extra>
-                        <h3 className='ui relaxed header inverted'>Music Artist - Vocalist
+                        <h3 className='ui relaxed header inverted'>Music Artist - {profile.artFormSubType}
                           <div className='sub header'>
-                            Jazz | Blues | Opera
+                            {profile.mainGenre} - {profile.otherGenres.join(' - ')}
                           </div>
                         </h3>
                       </Item.Extra>
@@ -107,6 +160,9 @@ class ProfileView extends React.Component {
                   active={activeItem === 'content' }
                   onClick={() => this.setActive('content')} />
               </Menu>
+            </Segment>
+            <Segment pilled color='black' inverted>
+              {content}
             </Segment>
           </Segment.Group>
         </div>

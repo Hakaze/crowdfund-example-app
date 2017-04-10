@@ -1,7 +1,16 @@
 import JobsView from './components/JobsView'
+import JobDetails from './containers/JobDetails'
 
 // Sync route definition
 export default {
   path: 'jobs',
-  component:  JobsView
+  indexRoute: {
+    component: JobsView
+  },
+  childRoutes: [
+    {
+      path: ':category/:id',
+      component: JobDetails
+    }
+  ]
 }
