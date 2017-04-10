@@ -1,6 +1,17 @@
 import React from 'react'
-import { Segment, Image, Item, Label, Menu, Icon, Button, Statistic, Flag } from 'semantic-ui-react'
+import {
+  Segment, Image, Item, Label, Menu, Icon, Dimmer, Statistic, Flag
+} from 'semantic-ui-react'
 import './ProfileView.scss'
+import tastemaker from './badges/tastemaker.png'
+import influencer from './badges/influencer.png'
+import connector from './badges/connector.png'
+import talentScout from './badges/talentscout.png'
+import guru from './badges/guru.png'
+import artrepreneur from './badges/artrepreneur.png'
+import mogul from './badges/mogul.png'
+import trendsetter from './badges/trendsetter.png'
+import maven from './badges/maven.png'
 
 class ProfileView extends React.Component {
   static propTypes = {
@@ -8,12 +19,19 @@ class ProfileView extends React.Component {
   }
 
   state = {
-    activeItem: 'bio'
+    activeItem: 'bio',
+    badgePane: false
   }
 
   setActive = (item) => {
     this.setState({
       activeItem: item
+    })
+  }
+
+  toggleBadges = () => {
+    this.setState({
+      badgePane: !this.state.badgePane
     })
   }
 
@@ -64,7 +82,7 @@ class ProfileView extends React.Component {
   }
   render () {
     const { profile } = this.props
-    const { activeItem } = this.state
+    const { activeItem, badgePane } = this.state
     const headerStyle = {
       backgroundImage: `url(${profile.coverPhoto})`,
       backgroundSize: 'cover',
@@ -84,7 +102,70 @@ class ProfileView extends React.Component {
       <div className='ui one column grid'>
         <div className='column'>
           <Segment.Group>
-            <Segment inverted style={headerStyle} raised id='profile-header'>
+            <Dimmer.Dimmable
+              as={Segment}
+              blurring
+              dimmed={badgePane}
+              inverted
+              style={headerStyle}
+              raised
+              id='profile-header'
+            >
+              <Dimmer active={badgePane} onClickOutside={this.toggleBadges}>
+                <div className='ui two column grid'>
+                  <div className='ten wide column'>
+                    <h4>Collected Badges</h4>
+                    <div className='badges-overlay'>
+                      <div className='badge'>
+                        <Image src={influencer} centered />
+                        <h5>Influencer</h5>
+                      </div>
+                      <div className='badge'>
+                        <Image src={connector} centered />
+                        <h5>Connector</h5>
+                      </div>
+                      <div className='badge'>
+                        <Image src={tastemaker} centered />
+                        <h5>Tastemaker</h5>
+                      </div>
+                      <div className='badge inactive'>
+                        <Image src={talentScout} centered />
+                        <h5>Talent Scout</h5>
+                      </div>
+                      <div className='badge inactive'>
+                        <Image src={guru} centered />
+                        <h5>Guru</h5>
+                      </div>
+                      <div className='badge inactive'>
+                        <Image src={artrepreneur} centered />
+                        <h5>Artrepreneur</h5>
+                      </div>
+                      <div className='badge inactive'>
+                        <Image src={mogul} centered />
+                        <h5>Mogul</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='six wide column stretched'>
+                    <div className='dim-closer'>
+                      <Icon link size='large' inverted name='close' onClick={() => this.toggleBadges()} />
+                    </div>
+                    <div style={{ borderLeft: '1px solid #727272'}}>
+                      <h4>Bonus Badges</h4>
+                      <div className='badges-overlay'>
+                        <div className='badge inactive'>
+                          <Image src={trendsetter} centered />
+                          <h5>Trendsetter</h5>
+                        </div>
+                        <div className='badge inactive'>
+                          <Image src={maven} centered />
+                          <h5>Maven</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Dimmer>
               <Label className='hud-style' corner='left' size='medium' color='green' icon='dollar' />
               <div className='ui grid'>
                 <div className='six wide column'>
@@ -128,7 +209,7 @@ class ProfileView extends React.Component {
                   <Label className='hud-style' attached='top right' size='mini' color='black' style={{ marginBottom: '10px' }}>
                     <Menu borderless pointing secondary inverted size='mini'>
                       <Menu.Item name='find' onClick={() => console.log('hi')}>
-                        <Icon align='left' name='find' /> Track
+                        <Icon name='find' /> Track
                       </Menu.Item>
                       <Menu.Item name='message' onClick={() => console.log('hi')}>
                         <Icon name='talk' /> Message
@@ -138,11 +219,20 @@ class ProfileView extends React.Component {
                       </Menu.Item>
                     </Menu>
                   </Label>
+                  <div className='badges'>
+                    <div className='badge'>
+                      <a onClick={() => this.toggleBadges()} className='hvr-ripple-out'>
+                        <Image centered src={tastemaker} />
+                      </a>
+                      <span className='subheader'>Badge Level</span>
+                      <h5>Tastemaker</h5>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </Segment>
-            <Segment pilled color='black' inverted>
-              <Menu inverted pointing color='blue' secondary size='medium'>
+            </Dimmer.Dimmable>
+            <Segment color='black' inverted>
+              <Menu inverted pointing color='blue' secondary size='huge'>
                 <Menu.Item
                   name='Bio'
                   active={activeItem === 'bio' }
@@ -159,9 +249,13 @@ class ProfileView extends React.Component {
                   name='Content'
                   active={activeItem === 'content' }
                   onClick={() => this.setActive('content')} />
+                <Menu.Item>
+                  <span style={{ color: '#2185D0', margin: 0 }}>240</span>
+                  <Icon color='blue' name='linkify' style={{ marginLeft: '4px' }} />
+                </Menu.Item>
               </Menu>
             </Segment>
-            <Segment pilled color='black' inverted>
+            <Segment color='black' inverted>
               {content}
             </Segment>
           </Segment.Group>

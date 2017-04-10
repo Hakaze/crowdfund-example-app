@@ -8,6 +8,7 @@ import Jobs from './Jobs'
 import Privacy from './Privacy'
 import Terms from './Terms'
 import Crowdfunding from './Crowdfunding'
+import Pricing from './Pricing'
 
 export const createRoutes = (store) => ({
   path : '/',
@@ -25,7 +26,8 @@ export const createRoutes = (store) => ({
         Jobs,
         Privacy,
         Terms,
-        Crowdfunding
+        Crowdfunding,
+        Pricing
       ]
     }
   ]
