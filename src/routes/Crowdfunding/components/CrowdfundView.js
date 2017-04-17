@@ -26,7 +26,7 @@ const CrowdfundView = () => {
         <Image className='crowdfund-card' centered src={chance} />
         <Image className='crowdfund-card' centered src={karina} />
         <Image className='crowdfund-card' centered src={frank} />
-        <Link to='/crowdfunding/info'>
+        <Link to='/crowdfund/info'>
           <Image className='crowdfund-card' centered src={whosnext} />
         </Link>
         <Segment secondary inverted padded>
@@ -51,7 +51,7 @@ const CrowdfundView = () => {
             <div className='column'>
               <h2>Are you an Artrepreneur?</h2>
               <Divider inverted />
-              <Link to='/crowdfunding/info'>LEARN MORE</Link>
+              <Link to='/crowdfund/info'>LEARN MORE</Link>
             </div>
           </div>
         </Segment>
@@ -66,7 +66,7 @@ const CrowdfundView = () => {
               </div>
               <Button primary inverted>Submit</Button>
               <h1>Questions?</h1>
-              <Link to='/crowdfunding/info'>Visit Our FAQ</Link>
+              <Link to='/crowdfund/info'>Visit Our FAQ</Link>
             </div>
           </div>
         </Segment>

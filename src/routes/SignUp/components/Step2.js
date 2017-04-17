@@ -16,7 +16,7 @@ class Step2 extends React.Component {
   renderMusicArtist = () => {
     const { updateForm, getStore, goToPage } = this.props
     const { form, page } = getStore()
-    const disableNext = !form.mainGenre || !form.musicianType
+    const disableNext = !form.primaryGenre || !form.artFormType
     const types = musicianTypes.map((t, i) => (
       <Button
         key={i}
@@ -24,8 +24,8 @@ class Step2 extends React.Component {
         circular
         inverted
         color='blue'
-        onClick={() => updateForm({ musicianType: t })}
-        active={form.musicianType === t}
+        onClick={() => updateForm({ artFormType: t })}
+        active={form.artFormType === t}
         content={t}
       />
     ))
@@ -36,11 +36,11 @@ class Step2 extends React.Component {
         circular
         inverted
         color='blue'
-        onClick={() => updateForm({ mainGenre: g })}
-        active={form.mainGenre === g}
+        onClick={() => updateForm({ primaryGenre: g })}
+        active={form.primaryGenre === g}
         content={g} />
     ))
-    const otherGenres = genres.filter(g => g !== form.mainGenre)
+    const otherGenres = genres.filter(g => g !== form.primaryGenre)
     const otherGenreBtns = otherGenres.map((g, i) => (
       <Button
         key={i}
@@ -48,8 +48,8 @@ class Step2 extends React.Component {
         circular
         inverted
         color='blue'
-        onClick={() => updateForm({ otherGenre: g })}
-        active={form.otherGenre === g}
+        onClick={() => updateForm({ otherGenres: g })}
+        active={form.otherGenres === g}
         content={g} />
     ))
     return (
@@ -90,7 +90,7 @@ class Step2 extends React.Component {
   renderModelArtist = () => {
     const { updateForm, getStore, goToPage } = this.props
     const { form, page } = getStore()
-    const disableNext = !form.modelType
+    const disableNext = !form.primaryModelType
     const types = modelTypes.map((t, i) => (
       <Button
         key={i}
@@ -98,8 +98,8 @@ class Step2 extends React.Component {
         circular
         inverted
         color='blue'
-        onClick={() => updateForm({ modelType: t })}
-        active={form.modelType === t}
+        onClick={() => updateForm({ primaryModelType: t })}
+        active={form.primaryModelType === t}
         content={t}
       />
     ))
@@ -110,8 +110,8 @@ class Step2 extends React.Component {
         circular
         inverted
         color='blue'
-        onClick={() => updateForm({ otherModelType: g })}
-        active={form.otherModelType === g}
+        onClick={() => updateForm({ otherModelTypes: g })}
+        active={form.otherModelTypes === g}
         content={g} />
     ))
     return (
@@ -148,7 +148,7 @@ class Step2 extends React.Component {
   renderModelScout = () => {
     const { updateForm, getStore, goToPage } = this.props
     const { form, page } = getStore()
-    const disableNext = !form.scoutType
+    const disableNext = !form.artFormType
     const categories = modelScoutTypes.map((cat, k) => {
       let btns = cat.values.map((t, i) => (
         <Button
@@ -157,8 +157,8 @@ class Step2 extends React.Component {
           circular
           inverted
           color='blue'
-          onClick={() => updateForm({ scoutType: t })}
-          active={form.scoutType === t}
+          onClick={() => updateForm({ artFormType: t })}
+          active={form.artFormType === t}
           content={t}
         />
       ))
@@ -198,7 +198,7 @@ class Step2 extends React.Component {
   renderMusicScout = () => {
     const { updateForm, getStore, goToPage } = this.props
     const { form, page } = getStore()
-    const disableNext = !form.scoutType
+    const disableNext = !form.artFormType || !form.primaryGenre
     const categories = musicScoutTypes.map((cat, k) => {
       let btns = cat.values.map((t, i) => (
         <Button
@@ -208,8 +208,8 @@ class Step2 extends React.Component {
           circular
           inverted
           color='blue'
-          onClick={() => updateForm({ scoutType: t })}
-          active={form.scoutType === t}
+          onClick={() => updateForm({ artFormType: t })}
+          active={form.artFormType === t}
           content={t}
         />
       ))
@@ -220,8 +220,23 @@ class Step2 extends React.Component {
         </div>
       )
     })
+    const mainGenreBtns = genres.map((g, i) => (
+      <Button
+        key={i}
+        basic
+        circular
+        inverted
+        color='blue'
+        onClick={() => updateForm({ primaryGenre: g })}
+        active={form.primaryGenre === g}
+        content={g} />
+    ))
     return (
       <Segment inverted padded secondary>
+        <h3 className='ui header inverted centered'>Main Genre</h3>
+        <div className='ui grid centered'>
+          <div className='row'>{mainGenreBtns}</div>
+        </div>
         <h2 className='ui header inverted'>User Type</h2>
         <div className='ui one column grid centered'>
           {categories}

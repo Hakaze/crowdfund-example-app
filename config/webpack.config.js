@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const project = require('./project.config')
 const debug = require('debug')('app:config:webpack')
+const path = require('path')
 
 const __DEV__ = project.globals.__DEV__
 const __PROD__ = project.globals.__PROD__
@@ -20,7 +21,10 @@ const webpackConfig = {
       project.paths.client(),
       'node_modules'
     ],
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json'],
+    alias : {
+      config : path.resolve(project.paths.client(), 'config', project.env)
+    }
   },
   module : {}
 }

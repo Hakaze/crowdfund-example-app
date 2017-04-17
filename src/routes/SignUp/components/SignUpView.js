@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from 'semantic-ui-react'
+import { Container, Step } from 'semantic-ui-react'
 import './SignUp.scss'
 import Step1 from './Step1'
 import Step2 from './Step2'
@@ -40,6 +40,13 @@ class SignUpView extends React.Component {
 
   render () {
     const { page } = this.state
+    const stepIndicators = [
+      { completed: page > 0, active: page === 0, title: 'Account Type' },
+      { completed: page > 1, active: page === 1, title: 'Art Info' },
+      { completed: page > 2, active: page === 2, title: 'Personal Info' },
+      { completed: page > 3, active: page === 3, title: 'Contact Info' },
+      { completed: page > 4, active: page === 4, title: 'Confirm Email' }
+    ]
     const steps = [
       <Step1 getStore={this.getStore} goToPage={this.goToPage} updateForm={this.updateForm} />,
       <Step2 getStore={this.getStore} goToPage={this.goToPage} updateForm={this.updateForm} />,
@@ -50,6 +57,7 @@ class SignUpView extends React.Component {
     ]
     return (
       <Container>
+        <Step.Group fluid size='small' ordered items={stepIndicators} />
         {steps[page]}
       </Container>
     )

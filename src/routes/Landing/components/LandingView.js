@@ -33,7 +33,7 @@ const LandingView = ({ setVisibility }) => (
 )
 
 LandingView.propTypes = {
-  setVisibility: React.PropTypes.bool
+  setVisibility: React.PropTypes.func
 }
 
 export default LandingView

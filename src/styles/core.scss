@@ -18,3 +18,14 @@ body {
 *:after {
   box-sizing: inherit;
 }
+
+.animating.ui.overlay.sidebar,
+.ui.visible.overlay.sidebar {
+  transition: transform 0.2s ease;
+}
+
+.ui.checkbox.inverted, .ui.toggle.checkbox input:checked {
+  label {
+    color: #FFFFFF;
+  }
+}

@@ -2,11 +2,7 @@ import React from 'react'
 import { Segment, Container, Button, Form, Divider, Label } from 'semantic-ui-react'
 import ethnicities from 'util/ethnicities'
 import incomeRanges from 'util/incomeRanges'
-
-const genders = [
-  { key: 'male', text: 'Male', value: 'male' },
-  { key: 'female', text: 'Female', value: 'female' },
-]
+import genders from 'util/genders'
 
 class Step3 extends React.Component {
   static propTypes = {
@@ -50,31 +46,53 @@ class Step3 extends React.Component {
                   required
                 />
               </Form.Group>
-              <Form.Input
-                name='stageName'
-                label='Stage Name'
-                placeholder='Stage Name'
-                onChange={this.handleChange}
-                required
-                fluid
-              />
-              <Form.Select
-                name='gender'
-                label='Gender'
-                options={genders}
-                placeholder='Gender'
-                onChange={this.handleChange}
-                required
-                fluid
-              />
-              <Form.Input
-                name='location'
-                label='Location'
-                placeholder='Location'
-                onChange={this.handleChange}
-                required
-                fluid
-              />
+              <Form.Group widths='equal'>
+                <Form.Input
+                  name='stageName'
+                  label='Stage Name'
+                  placeholder='Stage Name'
+                  onChange={this.handleChange}
+                  required
+                  fluid
+                />
+                <Form.Input
+                  type='date'
+                  name='birthDate'
+                  label='Birth Date'
+                  placeholder='Birth Date'
+                  onChange={this.handleChange}
+                  required
+                  fluid
+                />
+                <Form.Input
+                  name='location'
+                  label='Location'
+                  placeholder='Location'
+                  onChange={this.handleChange}
+                  required
+                  fluid
+                />
+              </Form.Group>
+              <Form.Group widths='equal'>
+                <Form.Select
+                  name='ethnicity'
+                  label='Ethnicity'
+                  options={ethnicities}
+                  placeholder='Ethnicity'
+                  onChange={this.handleChange}
+                  selectOnBlur={false}
+                  fluid
+                />
+                <Form.Select
+                  name='gender'
+                  label='Gender'
+                  options={genders}
+                  placeholder='Gender'
+                  onChange={this.handleChange}
+                  required
+                  fluid
+                />
+              </Form.Group>
             </Form>
           </div>
         </div>
@@ -126,39 +144,33 @@ class Step3 extends React.Component {
                   required
                 />
               </Form.Group>
-              <Form.Input
-                name='stageName'
-                label='Stage Name'
-                placeholder='Stage Name'
-                onChange={this.handleChange}
-                required
-                fluid
-              />
-              <Form.Select
-                name='gender'
-                label='Gender'
-                options={genders}
-                placeholder='Gender'
-                onChange={this.handleChange}
-                required
-                fluid
-              />
-              <Form.Input
-                name='location'
-                label='Location'
-                placeholder='Location'
-                onChange={this.handleChange}
-                required
-                fluid
-              />
               <Form.Group widths='equal'>
-                <Label as='a' icon='help' color='blue' ribbon />
+                <Form.Select
+                  name='gender'
+                  label='Gender'
+                  options={genders}
+                  placeholder='Gender'
+                  onChange={this.handleChange}
+                  required
+                  fluid
+                />
+                <Form.Input
+                  name='location'
+                  label='Location'
+                  placeholder='Location'
+                  onChange={this.handleChange}
+                  required
+                  fluid
+                />
+              </Form.Group>
+              <Form.Group widths='equal'>
                 <Form.Select
                   name='ethnicity'
                   label='Ethnicity'
                   options={ethnicities}
                   placeholder='Ethnicity'
                   onChange={this.handleChange}
+                  selectOnBlur={false}
                   fluid
                 />
                 <Form.Select
@@ -167,6 +179,7 @@ class Step3 extends React.Component {
                   options={incomeRanges}
                   placeholder='Income Range'
                   onChange={this.handleChange}
+                  selectOnBlur={false}
                   fluid
                 />
               </Form.Group>

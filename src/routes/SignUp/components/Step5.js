@@ -28,6 +28,14 @@ class Step5 extends React.Component {
           <div className='ui grid centered'>
             <div className='twelve wide column'>
               <Form inverted>
+                <Form.Input
+                  name='username'
+                  label='username'
+                  placeholder='Username'
+                  onChange={this.handleChange}
+                  required
+                  fluid
+                />
                 <Form.Group widths='equal'>
                   <Form.Input
                     name='email'

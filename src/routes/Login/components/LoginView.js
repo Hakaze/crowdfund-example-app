@@ -1,16 +1,13 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Form, Segment, Image, Divider, Button } from 'semantic-ui-react'
 import logoIcon from 'components/Navbar/logo.svg'
 
-class LoginView extends React.Component {
-  constructor (props) {
-    super(props)
-  }
+class LoginView extends Component {
 
   state = {
     form: {
-      email: null,
-      password: null
+      email: '',
+      password: ''
     }
   }
 
@@ -25,6 +22,15 @@ class LoginView extends React.Component {
     })
   }
 
+  handleLogin = (e) => {
+    e.preventDefault()
+    const { email, password } = this.state.form
+    if (email === '' || password === '') {
+      return false
+    }
+    this.props.doLogin({ email, password })
+  }
+
   render () {
     return (
       <div className='ui grid centered'>
@@ -34,7 +40,7 @@ class LoginView extends React.Component {
             <Divider hidden />
             <Image src={logoIcon} centered size='small' />
             <Divider hidden />
-            <Form inverted size='medium'>
+            <Form inverted>
               <Form.Input
                 inverted
                 type='email'
@@ -52,7 +58,7 @@ class LoginView extends React.Component {
                 fluid
               />
               <Divider section inverted />
-              <Button primary size='medium' content='Submit' fluid />
+              <Button primary content='Submit' onClick={this.handleLogin} fluid />
             </Form>
           </Segment>
         </div>
@@ -61,6 +67,8 @@ class LoginView extends React.Component {
   }
 }
 
-LoginView.propTypes = {}
+LoginView.propTypes = {
+  doLogin: PropTypes.func.isRequired
+}
 
 export default LoginView

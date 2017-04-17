@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, Image, Search, Button, Header, Divider, Menu } from 'semantic-ui-react'
+import { Container, Image, Button, Header, Divider, Menu } from 'semantic-ui-react'
+import InstantSearch from 'components/InstantSearch'
 import { Link } from 'react-router'
 import logoBig from './logo-big.svg'
 
@@ -44,8 +45,8 @@ export default class WelcomeSection extends React.Component {
                   </div>
                 </div>
                 <div className='row'>
-                  <div className='ten wide column' style={{ paddingTop: '20px' }}>
-                    <Search fluid size='huge' input={inputProps} />
+                  <div className='ten wide left aligned column' style={{ paddingTop: '20px' }}>
+                    <InstantSearch size='huge' inputProps={inputProps} />
                   </div>
                 </div>
                 <div className='row'>

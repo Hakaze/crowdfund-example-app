@@ -1,6 +1,6 @@
-import LoginView from './components/LoginView'
+import LoginContainer from './containers/Login'
 
-export default {
+export default (store) => ({
   path: 'login',
-  component : LoginView
-}
+  component : LoginContainer
+})

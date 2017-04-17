@@ -1,5 +1,5 @@
 export default [
   'Band',
   'Group',
-  'Singer'
+  'Vocalist'
 ]

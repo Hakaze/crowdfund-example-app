@@ -2,12 +2,24 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
+import { loginWithToken, logout } from 'store/auth'
 
 // ========================================================
 // Store Instantiation
 // ========================================================
 const initialState = window.___INITIAL_STATE__
 const store = createStore(initialState)
+const token = localStorage.getItem('token')
+
+if (token !== null) {
+  store.dispatch(loginWithToken(token))
+}
+
+window.addEventListener('storage', function (e) {
+  if (e.key === 'token' && e.newValue === null) {
+    store.dispatch(logout())
+  }
+})
 
 // ========================================================
 // Render Setup

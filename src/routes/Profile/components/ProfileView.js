@@ -44,7 +44,9 @@ class ProfileView extends React.Component {
             <div className='twelve wide column'>
               <h2 className='ui header inverted'>Bio</h2>
               <h5 className='ui header orange'>About Me</h5>
-              <p>{profile.bio_about}</p>
+              <p>{profile.bioAbout.split('\n').map((item, key) => {
+                return <span key={key}>{item}<br/></span>
+              })}</p>
             </div>
             <div className='four wide center aligned column'>
               <Segment inverted>
@@ -55,21 +57,27 @@ class ProfileView extends React.Component {
           <div className='row'>
             <div className='fluid column'>
               <h5 className='ui header orange'>Interests</h5>
-              <div className='ui list inverted'>
-                {profile.bio_interests.map((v, k) => (
-                  <div className='item' key={k}>{v.label}</div>
-                ))}
+              <div>
+                {profile.bioInterests.split('\n').map((item, key) => {
+                  return <span key={key}>{item}<br/></span>
+                })}
               </div>
             </div>
           </div>
           <div className='three column row'>
             <div className='column'>
               <h5 className='ui header orange'>Area Focus</h5>
-              {profile.artFormSubType}
+              {profile.bioAreaFocus.split('\n').map((item, key) => {
+                return <span key={key}>{item}<br/></span>
+              })}
             </div>
             <div className='column'>
               <h5 className='ui header orange'>Additional Skills</h5>
-
+              <div>
+                {profile.bioSkills.split('\n').map((item, key) => {
+                  return <span key={key}>{item}<br/></span>
+                })}
+              </div>
             </div>
             <div className='column'>
               <h5 className='ui header orange'>General Stats</h5>
@@ -169,7 +177,7 @@ class ProfileView extends React.Component {
               <Label className='hud-style' corner='left' size='medium' color='green' icon='dollar' />
               <div className='ui grid'>
                 <div className='six wide column'>
-                  <Image height={120} width={120} bordered shape='circular' src={profile.avatar} />
+                  <Image height={120} width={120} bordered shape='circular' src={profile.profilePicture} />
                   <Item>
                     <Item.Content>
                       <Label className='hud-style' size='small' attached='bottom' image color='black'>
@@ -196,9 +204,10 @@ class ProfileView extends React.Component {
                         </Label>
                       </Item.Meta>
                       <Item.Extra>
-                        <h3 className='ui relaxed header inverted'>Music Artist - {profile.artFormSubType}
+                        <h3 className='ui relaxed header inverted'>
+                          {profile.artForm} {profile.accountType} - {profile.artFormType}
                           <div className='sub header'>
-                            {profile.mainGenre} - {profile.otherGenres.join(' - ')}
+                            {profile.primaryGenre} - {profile.otherGenres}
                           </div>
                         </h3>
                       </Item.Extra>
@@ -232,7 +241,7 @@ class ProfileView extends React.Component {
               </div>
             </Dimmer.Dimmable>
             <Segment color='black' inverted>
-              <Menu inverted pointing color='blue' secondary size='huge'>
+              <Menu inverted pointing secondary size='huge'>
                 <Menu.Item
                   name='Bio'
                   active={activeItem === 'bio' }

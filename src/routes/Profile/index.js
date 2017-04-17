@@ -1,6 +1,12 @@
 import ViewContainer from './containers/View'
+import { fetchByUsername } from 'store/profile'
 
-export default {
+export default (store) => ({
   path: 'profile/:id',
-  component : ViewContainer
-}
+  getComponent: (nextState, cb) => {
+    store.dispatch(fetchByUsername(nextState.params.id))
+      .then(() => {
+        cb(null, ViewContainer)
+      })
+  }
+})
