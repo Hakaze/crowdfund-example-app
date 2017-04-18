@@ -4,6 +4,7 @@ import profilesReducer from './profile'
 import authReducer from './auth'
 import chatReducer from './chat'
 import searchReducer from './search'
+import contentReducer from './content'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -12,6 +13,7 @@ export const makeRootReducer = (asyncReducers) => {
     profile: profilesReducer,
     chat: chatReducer,
     search: searchReducer,
+    content: contentReducer,
     ...asyncReducers
   })
 }

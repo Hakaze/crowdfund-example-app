@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import {
-  Menu, Segment, Form, Breadcrumb, List, Checkbox, Button
+  Menu, Segment, Form, Breadcrumb, List, Checkbox, Button,
+  Modal, Image
 } from 'semantic-ui-react'
 import ethnicities from 'util/ethnicities'
 import incomeRanges from 'util/incomeRanges'
 import genders from 'util/genders'
+import AddPhotos from './AddPhotos'
+import './AccountView.scss'
 
 export default class AccountView extends Component {
   constructor (props) {
@@ -12,13 +15,26 @@ export default class AccountView extends Component {
     this.state = {
       activeItem: 'general',
       edit: false,
-      form: props.user.toJS()
+      form: props.user.toJS(),
+      photoModal: false
     }
   }
 
   static propTypes = {
     user: PropTypes.object.isRequired,
-    save: PropTypes.func.isRequired
+    save: PropTypes.func.isRequired,
+    uploadPhotos: PropTypes.func.isRequired,
+    uploadVideos: PropTypes.func.isRequired,
+    uploadMusic: PropTypes.func.isRequired
+  }
+
+  toggleModal = (type) => {
+    let _state = this.state
+    _state[`${type}Modal`] = !_state[`${type}Modal`]
+    this.setState({
+      ...this.state,
+      ..._state
+    })
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -247,7 +263,37 @@ export default class AccountView extends Component {
   }
 
   renderPhotos = () => {
-
+    const { photos, uploadPhotos } = this.props
+    const { photoModal } = this.state
+    const toggle = () => this.toggleModal('photo')
+    return (
+      <div className='ui grid'>
+        <div className='row'>
+          <div className='column fluid'>
+            <Button
+              onClick={toggle}
+              floated='right'
+              primary
+              icon='add'
+              content='Add Photos'
+            />
+            <Modal open={photoModal} onClose={toggle}>
+              <Modal.Header>Upload Photos</Modal.Header>
+              <Modal.Content>
+                <AddPhotos onSuccess={toggle} doSave={uploadPhotos} />
+              </Modal.Content>
+            </Modal>
+          </div>
+        </div>
+        <div className='three column row'>
+          {photos.toList().toJS().map((p, k) => (
+            <div className='column stretched' key={k}>
+              <Image src={p.location} />
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   }
 
   renderVideos = () => {
@@ -267,7 +313,7 @@ export default class AccountView extends Component {
     if (form.accountType === 'Artist') {
       paneContent.photos = this.renderPhotos
       paneContent.videos = this.renderVideos
-      if (form.artFormType === 'Music') {
+      if (form.artForm === 'Music') {
         paneContent.music = this.renderMusic
       }
     }
@@ -275,7 +321,7 @@ export default class AccountView extends Component {
       let items = []
       for (let key in paneContent) {
         items.push(
-          <Menu.Item name={key} active={activeItem === key} onClick={this.handleItemClick} />
+          <Menu.Item key={key} name={key} active={activeItem === key} onClick={this.handleItemClick} />
         )
       }
       return items

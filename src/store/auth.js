@@ -120,7 +120,7 @@ export const signup = (payload) => {
 export const saveAccountInfo = (payload) => {
   return (dispatch, getState) => {
     log.debug('Auth::saveAccountInfo::initial', payload)
-    return api.patch(`/user`)
+    return api.patch(`/user`, JSON.stringify(payload))
       .then(({ data }) => {
         log.debug('Auth::saveAccountInfo::response', data)
         dispatch(receiveAccountInfo(data))
