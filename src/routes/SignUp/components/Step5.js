@@ -5,7 +5,8 @@ class Step5 extends React.Component {
   static propTypes = {
     getStore: React.PropTypes.func,
     updateForm: React.PropTypes.func,
-    goToPage: React.PropTypes.func
+    goToPage: React.PropTypes.func,
+    signup: React.PropTypes.func
   }
 
   handleChange = (e, { value, name, checked }) => {
@@ -13,6 +14,14 @@ class Step5 extends React.Component {
     const field = {}
     field[name] = value || checked
     updateForm({ ...field })
+  }
+
+  register = () => {
+    const { signup, getStore, goToPage } = this.props
+    const { form, page } = getStore()
+    signup(form).then(() => {
+      goToPage(page + 1)
+    })
   }
 
   render () {
@@ -95,7 +104,7 @@ class Step5 extends React.Component {
           <Button
             circular
             primary
-            onClick={() => goToPage(page + 1)}
+            onClick={() => this.register()}
             disabled={disableNext}
             floated='right'
             content='Submit'

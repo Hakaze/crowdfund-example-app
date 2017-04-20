@@ -40,6 +40,7 @@ class SignUpView extends React.Component {
 
   render () {
     const { page } = this.state
+    const { doSignup } = this.props
     const stepIndicators = [
       { completed: page > 0, active: page === 0, title: 'Account Type' },
       { completed: page > 1, active: page === 1, title: 'Art Info' },
@@ -47,12 +48,17 @@ class SignUpView extends React.Component {
       { completed: page > 3, active: page === 3, title: 'Contact Info' },
       { completed: page > 4, active: page === 4, title: 'Confirm Email' }
     ]
+    const stepProps = {
+      getStore: this.getStore,
+      goToPage: this.goToPage,
+      updateForm: this.updateForm
+    }
     const steps = [
-      <Step1 getStore={this.getStore} goToPage={this.goToPage} updateForm={this.updateForm} />,
-      <Step2 getStore={this.getStore} goToPage={this.goToPage} updateForm={this.updateForm} />,
-      <Step3 getStore={this.getStore} goToPage={this.goToPage} updateForm={this.updateForm} />,
-      <Step4 getStore={this.getStore} goToPage={this.goToPage} updateForm={this.updateForm} />,
-      <Step5 getStore={this.getStore} goToPage={this.goToPage} updateForm={this.updateForm} />,
+      <Step1 {...stepProps} />,
+      <Step2 {...stepProps} />,
+      <Step3 {...stepProps} />,
+      <Step4 {...stepProps} />,
+      <Step5 signup={doSignup} {...stepProps} />,
       <Step6 getStore={this.getStore} />
     ]
     return (
@@ -64,6 +70,8 @@ class SignUpView extends React.Component {
   }
 }
 
-SignUpView.propTypes = {}
+SignUpView.propTypes = {
+  doSignup: React.PropTypes.func
+}
 
 export default SignUpView

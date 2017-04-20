@@ -1,19 +1,19 @@
 import { connect } from 'react-redux'
 import ChatView from '../components/ChatView'
+import { fetchMessages, sendMessage } from 'store/chat'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     conversations: state.chat.conversations,
     messages: state.chat.messages,
-    conversations: state.chat.conversations
+    user: state.auth.user
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    //doSendMessage: (payload) => dispatch(sendMessage(payload)),
-    //doSendReply: (payload) => dispatch(sendReply(payload)),
-    //readThread: (payload) => dispatch(readThread(payload))
+    getMessages: (id) => dispatch(fetchMessages(id)),
+    doSendMessage: (convoId, message) => dispatch(sendMessage(convoId, message))
   }
 }
 

@@ -2,9 +2,11 @@ import { connect } from 'react-redux'
 import ProfileView from '../components/ProfileView'
 
 const mapStateToProps = (state, ownProps) => {
-  const userId = parseInt(ownProps.params.id)
   return {
-    profile: state.profile
+    profile: state.profile,
+    photos: state.content.photos,
+    music: state.content.music,
+    videos: state.content.videos
   }
 }
 

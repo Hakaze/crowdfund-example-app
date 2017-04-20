@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import {
   Segment, Image, Item, Label, Menu, Icon, Dimmer, Statistic, Flag
 } from 'semantic-ui-react'
 import './ProfileView.scss'
+import ContentTab from './ContentTab'
+import BioTab from './BioTab'
+import ContentScore from './ContentScore'
+import ScoutScore from './ScoutScore'
 import tastemaker from './badges/tastemaker.png'
 import influencer from './badges/influencer.png'
 import connector from './badges/connector.png'
@@ -15,7 +19,10 @@ import maven from './badges/maven.png'
 
 class ProfileView extends React.Component {
   static propTypes = {
-    profile: React.PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    music: PropTypes.object,
+    photos: PropTypes.object,
+    videos: PropTypes.object
   }
 
   state = {
@@ -35,59 +42,28 @@ class ProfileView extends React.Component {
     })
   }
 
+  renderContent = () => {
+    const { profile, music, photos, videos } = this.props
+    return (
+      <ContentTab {...{ user: profile, music, videos, photos }} />
+    )
+  }
+
   renderBio = () => {
     const { profile } = this.props
     return (
-      <div>
-        <div className='ui padded grid'>
-          <div className='row'>
-            <div className='twelve wide column'>
-              <h2 className='ui header inverted'>Bio</h2>
-              <h5 className='ui header orange'>About Me</h5>
-              <p>{profile.bioAbout.split('\n').map((item, key) => {
-                return <span key={key}>{item}<br/></span>
-              })}</p>
-            </div>
-            <div className='four wide center aligned column'>
-              <Segment inverted>
-                <Statistic size='tiny' inverted color='orange' value='240' label='page views' />
-              </Segment>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='fluid column'>
-              <h5 className='ui header orange'>Interests</h5>
-              <div>
-                {profile.bioInterests.split('\n').map((item, key) => {
-                  return <span key={key}>{item}<br/></span>
-                })}
-              </div>
-            </div>
-          </div>
-          <div className='three column row'>
-            <div className='column'>
-              <h5 className='ui header orange'>Area Focus</h5>
-              {profile.bioAreaFocus.split('\n').map((item, key) => {
-                return <span key={key}>{item}<br/></span>
-              })}
-            </div>
-            <div className='column'>
-              <h5 className='ui header orange'>Additional Skills</h5>
-              <div>
-                {profile.bioSkills.split('\n').map((item, key) => {
-                  return <span key={key}>{item}<br/></span>
-                })}
-              </div>
-            </div>
-            <div className='column'>
-              <h5 className='ui header orange'>General Stats</h5>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <BioTab {...{ profile }} />
     )
   }
+
+  renderContentScore = () => {
+    return <ContentScore />
+  }
+
+  renderScoutScore = () => {
+    return <ScoutScore />
+  }
+
   render () {
     const { profile } = this.props
     const { activeItem, badgePane } = this.state
@@ -98,14 +74,24 @@ class ProfileView extends React.Component {
       backgroundPosition: 'center center',
       height: '372px'
     }
-    let content
-    switch (activeItem) {
-      case 'bio':
-        content = this.renderBio()
-      break
-      case 'contentScore':
-      break
+    const paneContent = {
+      bio: this.renderBio
     }
+    if (profile.accountType === 'Artist') {
+      paneContent.content = this.renderContent
+      paneContent['scout score'] = this.renderScoutScore
+      paneContent['content score'] = this.renderContentScore
+    }
+    const menuItems = () => {
+      let items = []
+      for (let key in paneContent) {
+        items.push(
+          <Menu.Item key={key} name={key} active={activeItem === key} onClick={() => this.setActive(key)} />
+        )
+      }
+      return items
+    }
+
     return (
       <div className='ui one column grid'>
         <div className='column'>
@@ -184,7 +170,7 @@ class ProfileView extends React.Component {
                         <Flag name='us' />
                         {profile.location}
                       </Label>
-                      <h5 className='stage-name'>{profile.stageName}</h5>
+                      <h5 className='stage-name'>{profile.stageName || `${profile.firstName} ${profile.lastName}` }</h5>
                       <Item.Meta>
                         <Label className='hud-style' ribbon size='small' color='black' style={{ marginBottom: '10px' }}>
                           <Statistic size='mini' inverted color='green'>
@@ -205,9 +191,9 @@ class ProfileView extends React.Component {
                       </Item.Meta>
                       <Item.Extra>
                         <h3 className='ui relaxed header inverted'>
-                          {profile.artForm} {profile.accountType} - {profile.artFormType}
+                          {profile.artForm} {profile.accountType} - {profile.artFormType || profile.userType}
                           <div className='sub header'>
-                            {profile.primaryGenre} - {profile.otherGenres}
+                            {profile.primaryGenre || profile.primaryModelType} - {profile.otherGenres || profile.otherModelTypes}
                           </div>
                         </h3>
                       </Item.Extra>
@@ -242,30 +228,15 @@ class ProfileView extends React.Component {
             </Dimmer.Dimmable>
             <Segment color='black' inverted>
               <Menu inverted pointing secondary size='huge'>
-                <Menu.Item
-                  name='Bio'
-                  active={activeItem === 'bio' }
-                  onClick={() => this.setActive('bio')} />
-                <Menu.Item
-                  name='Content Score'
-                  active={activeItem === 'content_score' }
-                  onClick={() => this.setActive('content_score')} />
-                <Menu.Item
-                  name='Scout Score'
-                  active={activeItem === 'scout_score' }
-                  onClick={() => this.setActive('scout_score')} />
-                <Menu.Item
-                  name='Content'
-                  active={activeItem === 'content' }
-                  onClick={() => this.setActive('content')} />
-                <Menu.Item>
+                {menuItems()}
+                <Menu.Item key='connections'>
                   <span style={{ color: '#2185D0', margin: 0 }}>240</span>
                   <Icon color='blue' name='linkify' style={{ marginLeft: '4px' }} />
                 </Menu.Item>
               </Menu>
             </Segment>
             <Segment color='black' inverted>
-              {content}
+              {paneContent[activeItem]()}
             </Segment>
           </Segment.Group>
         </div>
@@ -273,7 +244,5 @@ class ProfileView extends React.Component {
     )
   }
 }
-
-ProfileView.propTypes = {}
 
 export default ProfileView

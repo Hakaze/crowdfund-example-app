@@ -1,6 +1,6 @@
-import SignUpView from './components/SignUpView'
+import SignUpContainer from './containers/SignUp'
 
 export default {
   path: 'signup',
-  component : SignUpView
+  component : SignUpContainer
 }

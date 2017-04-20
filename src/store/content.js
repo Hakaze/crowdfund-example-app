@@ -52,6 +52,38 @@ export function uploadPhotos (file) {
   }
 }
 
+export function uploadMusic (file) {
+  return (dispatch, getState) => {
+    log.debug('Content::upload::initial')
+    const headers = { 'Content-Type': 'multipart/form-data' }
+    const formData = new FormData()
+    formData.append('file', file)
+    return api.post(`/user/tracks`, formData, { headers })
+      .then(({ data }) => {
+        log.debug('Content::upload::response', data)
+        dispatch(receiveMusic(data))
+        return Promise.resolve(data)
+      })
+      .catch((e) => log.error(e))
+  }
+}
+
+export function uploadVideos (file) {
+  return (dispatch, getState) => {
+    log.debug('Content::upload::initial')
+    const video = JSON.stringify({
+      link: file
+    })
+    return api.post(`/user/videos`, video)
+      .then(({ data }) => {
+        log.debug('Content::upload::response', data)
+        dispatch(receiveVideos(data))
+        return Promise.resolve(data)
+      })
+      .catch((e) => log.error(e))
+  }
+}
+
 export function fetchPhotos (username) {
   return (dispatch, getState) => {
     log.debug('Content::fetch::initial', username)
@@ -82,22 +114,6 @@ export function fetchMusic (username) {
   return (dispatch, getState) => {
     log.debug('Content::fetch::initial', username)
     return api.get(`/user/${username}/tracks`)
-      .then(({ data }) => {
-        log.debug('Content::upload::response', data)
-        dispatch(receiveMusic(data))
-        return Promise.resolve(data)
-      })
-      .catch((e) => log.error(e))
-  }
-}
-
-export function uploadMusic (file) {
-  return (dispatch, getState) => {
-    log.debug('Content::upload::initial')
-    const headers = { 'Content-Type': 'multipart/form-data' }
-    const formData = new FormData()
-    formData.append('file', file)
-    return api.post(`/user/tracks`, formData, { headers })
       .then(({ data }) => {
         log.debug('Content::upload::response', data)
         dispatch(receiveMusic(data))

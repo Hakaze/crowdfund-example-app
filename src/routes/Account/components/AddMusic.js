@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { Button, Header, Icon, Item } from 'semantic-ui-react'
+import { Button, Header, Icon, Item, Embed } from 'semantic-ui-react'
 import Dropzone from 'react-dropzone'
 
-class AddPhotos extends Component {
+class AddMusic extends Component {
 
   static propTypes = {
     doSave: PropTypes.func,
@@ -41,10 +41,9 @@ class AddPhotos extends Component {
     })
   }
 
-  renderPhotos = (f, key) => {
+  renderMusic = (f, key) => {
     return (
       <Item key={key}>
-        <Item.Image size='small' src={f.preview} />
         <Item.Content verticalAlign='middle'>
           <Item.Description>
             {f.name}
@@ -79,7 +78,7 @@ class AddPhotos extends Component {
       onDrop: this.onDrop,
       ref: (node) => { this.dropzone = node },
       multiple: false,
-      accept: 'image/*'
+      accept: 'audio/*'
     }
 
     const { files } = this.state
@@ -88,8 +87,8 @@ class AddPhotos extends Component {
         <div className='six wide column'>
           <Dropzone {...dzProps}>
             <Header as='h2' icon>
-              <Icon name='image' />
-              Drop Images Here
+              <Icon name='music' />
+              Drop Audio Files Here
             </Header>
           </Dropzone>
         </div>
@@ -100,7 +99,7 @@ class AddPhotos extends Component {
               : <Button positive onClick={this.onOpenClick} fluid icon='add circle' content='Browse Files' />
           }
           {files.length > 0
-            ? <Item.Group divided relaxed>{files.map(this.renderPhotos)}</Item.Group>
+            ? <Item.Group divided relaxed>{files.map(this.renderMusic)}</Item.Group>
             : null
           }
         </div>
@@ -109,4 +108,4 @@ class AddPhotos extends Component {
   }
 }
 
-export default AddPhotos
+export default AddMusic

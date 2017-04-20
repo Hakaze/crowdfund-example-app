@@ -41,7 +41,7 @@ export function authLoginSuccess (payload) {
 
 export function authSignupSuccess (payload) {
   return {
-    type: AUTH_LOGIN_SUCCESS,
+    type: AUTH_SIGNUP_SUCCESS,
     payload
   }
 }
@@ -49,6 +49,13 @@ export function authSignupSuccess (payload) {
 export function authLoginFailure (payload) {
   return {
     type: AUTH_LOGIN_FAILURE,
+    payload
+  }
+}
+
+export function authSignupFailure (payload) {
+  return {
+    type: AUTH_SIGNUP_FAILURE,
     payload
   }
 }
@@ -100,20 +107,14 @@ export const login = (payload, redirect = null) => {
 export const signup = (payload) => {
   return (dispatch, getState) => {
     dispatch(authLoginRequest(payload))
-    log.debug('Auth::login::initial', payload)
-    const body = JSON.stringify({
-      email: payload.email,
-      password: payload.password,
-      first_name: payload.firstName,
-      last_name: payload.lastName
-    })
-    return api.post('/users/signup', body)
+    log.debug('Auth::signup::initial', payload)
+    const body = JSON.stringify(payload)
+    return api.post('/users', body)
       .then(({ data }) => {
-        log.debug('Auth::login::response', data)
         dispatch(authSignupSuccess(data))
-        browserHistory.replace(`/profile/${data.id}`)
+        return Promise.resolve(data)
       })
-      .catch((e) => dispatch(authLoginFailure(e)))
+      .catch((e) => dispatch(authSignupFailure(e)))
   }
 }
 

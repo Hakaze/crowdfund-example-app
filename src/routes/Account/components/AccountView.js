@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import {
   Menu, Segment, Form, Breadcrumb, List, Checkbox, Button,
-  Modal, Image
+  Modal, Image, Embed
 } from 'semantic-ui-react'
 import ethnicities from 'util/ethnicities'
 import incomeRanges from 'util/incomeRanges'
 import genders from 'util/genders'
 import AddPhotos from './AddPhotos'
+import AddMusic from './AddMusic'
+import AddVideos from './AddVideos'
 import './AccountView.scss'
 
 export default class AccountView extends Component {
@@ -16,7 +18,9 @@ export default class AccountView extends Component {
       activeItem: 'general',
       edit: false,
       form: props.user.toJS(),
-      photoModal: false
+      photoModal: false,
+      musicModal: false,
+      videoModal: false
     }
   }
 
@@ -297,11 +301,71 @@ export default class AccountView extends Component {
   }
 
   renderVideos = () => {
-
+    const { videos, uploadVideos } = this.props
+    const { videoModal } = this.state
+    const toggle = () => this.toggleModal('video')
+    return (
+      <div className='ui grid'>
+        <div className='row'>
+          <div className='column fluid'>
+            <Button
+              onClick={toggle}
+              floated='right'
+              primary
+              icon='add'
+              content='Add Video'
+            />
+            <Modal open={videoModal} onClose={toggle}>
+              <Modal.Header>Add Video</Modal.Header>
+              <Modal.Content>
+                <AddVideos onSuccess={toggle} doSave={uploadVideos} />
+              </Modal.Content>
+            </Modal>
+          </div>
+        </div>
+        <div className='three column row'>
+          {videos.toList().toJS().map((p, k) => (
+            <div className='column stretched' key={k}>
+              <Embed id={p.link} source='vimeo' />
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   }
 
   renderMusic = () => {
-
+    const { music, uploadMusic } = this.props
+    const { musicModal } = this.state
+    const toggle = () => this.toggleModal('music')
+    return (
+      <div className='ui grid'>
+        <div className='row'>
+          <div className='column fluid'>
+            <Button
+              onClick={toggle}
+              floated='right'
+              primary
+              icon='add'
+              content='Add Music'
+            />
+            <Modal open={musicModal} onClose={toggle}>
+              <Modal.Header>Upload Music</Modal.Header>
+              <Modal.Content>
+                <AddMusic onSuccess={toggle} doSave={uploadMusic} />
+              </Modal.Content>
+            </Modal>
+          </div>
+        </div>
+        <div className='three column row'>
+          {music.toList().toJS().map((p, k) => (
+            <div className='column stretched' key={k}>
+              <Embed url={p.location} />
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   }
 
   render () {
