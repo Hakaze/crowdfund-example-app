@@ -22,10 +22,10 @@ class ContentTab extends Component {
     return (
       <div className='ui centered grid'>
         <div className='column fluid'>
-          <Card.Group itemsPerRow={3}>
+          <Card.Group itemsPerRow={2}>
             {photos.toList().toJS().map((p, k) => (
               <Card key={k}>
-                <Image src={p.location} />
+                <Image height={280} src={p.location} />
                 <Card.Content extra>
                   30 <Icon name='commenting' />
                   250 <Icon name='eye' />
@@ -40,22 +40,26 @@ class ContentTab extends Component {
 
   renderVideos = () => {
     const { videos } = this.props
+    const embeds = videos.toList().toJS().map((p, k) => {
+      const source = p.link.indexOf('youtube') > -1 || p.link.indexOf('youtu.be') > -1
+        ? 'youtube' : 'vimeo'
+      const link = p.link.split('/')[3]
+      return (
+        <Card>
+          <Card.Content>
+            <Embed active autoplay={false} id={link} source={source} />
+          </Card.Content>
+          <Card.Content extra>
+            30 <Icon name='commenting' />
+            250 <Icon name='eye' />
+          </Card.Content>
+        </Card>
+      )
+    })
     return (
       <div className='ui centered grid'>
         <div className='column fluid'>
-          <Card.Group itemsPerRow={3}>
-            {videos.toList().toJS().map((p, k) => (
-              <Card>
-                <Card.Content>
-                  <Embed id={p.link} source='youtube' />
-                </Card.Content>
-                <Card.Content extra>
-                  30 <Icon name='commenting' />
-                  250 <Icon name='eye' />
-                </Card.Content>
-              </Card>
-            ))}
-          </Card.Group>
+          <Card.Group itemsPerRow={2}>{embeds}</Card.Group>
         </div>
       </div>
     )
@@ -68,13 +72,13 @@ class ContentTab extends Component {
     return (
       <div className='ui centered grid'>
         <div className='column fluid'>
-          <Card.Group itemsPerRow={3}>
+          <Card.Group itemsPerRow={2}>
             {music.toList().toJS().map((p, k) => (
               <Card>
                 <iframe
                   style={{ border: 0 }}
                   width='100%'
-                  height='300'
+                  height='280'
                   scrolling='no'
                   frameborder='no'
                   src={`${pref}//api.soundcloud.com/tracks/${p.link}&amp;auto_play=false${suf}`} />

@@ -103,7 +103,8 @@ class Step2 extends React.Component {
         content={t}
       />
     ))
-    const otherModelBtns = genres.map((g, i) => (
+    const otherTypes = modelTypes.filter(g => g !== form.primaryModelType)
+    const otherModelBtns = otherTypes.map((g, i) => (
       <Button
         key={i}
         basic

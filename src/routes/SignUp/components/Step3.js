@@ -21,9 +21,9 @@ class Step3 extends React.Component {
   renderArtist = () => {
     const { getStore, goToPage } = this.props
     const { form, page } = getStore()
-    const disableNext = (
+    const disableNext = form.artFormType === 'Music' ? (
       !form.firstName || !form.lastName || !form.stageName || !form.gender || !form.location
-    )
+    ) : (!form.firstName || !form.lastName || !form.gender || !form.location)
     return (
       <Segment inverted padded secondary>
         <h2 className='ui header inverted'>Personal Information</h2>
@@ -47,14 +47,16 @@ class Step3 extends React.Component {
                 />
               </Form.Group>
               <Form.Group widths='equal'>
-                <Form.Input
-                  name='stageName'
-                  label='Stage Name'
-                  placeholder='Stage Name'
-                  onChange={this.handleChange}
-                  required
-                  fluid
-                />
+                {form.artFormType === 'Music'
+                  ? <Form.Input
+                    name='stageName'
+                    label='Stage Name'
+                    placeholder='Stage Name'
+                    onChange={this.handleChange}
+                    required
+                    fluid />
+                  : null
+                }
                 <Form.Input
                   type='date'
                   name='birthDate'

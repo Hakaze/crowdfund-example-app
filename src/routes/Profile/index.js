@@ -4,7 +4,7 @@ import { fetchPhotos, fetchVideos, fetchMusic } from 'store/content'
 
 export default (store) => ({
   path: 'profile/:id',
-  getComponent: (nextState, cb) => {
+  onEnter: (nextState, replace, cb) => {
     const username = nextState.params.id
     const promises = [
       store.dispatch(fetchByUsername(username)),
@@ -13,7 +13,8 @@ export default (store) => ({
       store.dispatch(fetchMusic(username))
     ]
     Promise.all(promises).then(() => {
-      cb(null, ViewContainer)
+      cb()
     })
-  }
+  },
+  component: ViewContainer
 })

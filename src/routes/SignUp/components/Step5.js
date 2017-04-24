@@ -17,11 +17,12 @@ class Step5 extends React.Component {
   }
 
   register = () => {
-    const { signup, getStore, goToPage } = this.props
-    const { form, page } = getStore()
-    signup(form).then(() => {
+    const { getStore, goToPage } = this.props
+    const { page } = getStore()
+    goToPage(page + 1)
+    /** signup(form).then(() => {
       goToPage(page + 1)
-    })
+    })**/
   }
 
   render () {

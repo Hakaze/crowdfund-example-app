@@ -111,7 +111,6 @@ class CoreLayout extends Component {
                 <Menu.Item name='how-it-works' onClick={() => goTo('/#how-it-works')} content='How It Works' />
                 <Menu.Item name='crowdfund' onClick={() => goTo('/crowdfund')} content='Equity Crowdfunding' />
                 <Menu.Item name='promos' onClick={() => goTo('/promos')} content='Promos' />
-                <Menu.Item name='invite' onClick={() => goTo('/invite')} content='Invite Friends' />
                 <Menu.Item name='contact' onClick={() => goTo('/contact')} content='Contact Us' />
               </Menu>
               <h3 className='ui header inverted centered'>Voting Volume</h3>
