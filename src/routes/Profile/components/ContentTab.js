@@ -20,21 +20,19 @@ class ContentTab extends Component {
   renderPhotos = () => {
     const { photos } = this.props
     return (
-      <div className='ui grid'>
-        <div className='two column row'>
-          {photos.toList().toJS().map((p, k) => (
-            <div className='column stretched' key={k}>
-              <Card>
-                <Card.Content>
-                  <Image src={p.location} />
-                </Card.Content>
+      <div className='ui centered grid'>
+        <div className='column fluid'>
+          <Card.Group itemsPerRow={3}>
+            {photos.toList().toJS().map((p, k) => (
+              <Card key={k}>
+                <Image src={p.location} />
                 <Card.Content extra>
                   30 <Icon name='commenting' />
                   250 <Icon name='eye' />
                 </Card.Content>
               </Card>
-            </div>
-          ))}
+            ))}
+          </Card.Group>
         </div>
       </div>
     )
@@ -43,44 +41,50 @@ class ContentTab extends Component {
   renderVideos = () => {
     const { videos } = this.props
     return (
-      <div className='ui grid'>
-        <div className='two column row'>
-          {videos.toList().toJS().map((p, k) => (
-            <div className='column stretched' key={k}>
+      <div className='ui centered grid'>
+        <div className='column fluid'>
+          <Card.Group itemsPerRow={3}>
+            {videos.toList().toJS().map((p, k) => (
               <Card>
                 <Card.Content>
-                  <Embed id={p.link} source='vimeo' />
+                  <Embed id={p.link} source='youtube' />
                 </Card.Content>
                 <Card.Content extra>
                   30 <Icon name='commenting' />
                   250 <Icon name='eye' />
                 </Card.Content>
               </Card>
-            </div>
-          ))}
+            ))}
+          </Card.Group>
         </div>
       </div>
     )
   }
 
   renderMusic = () => {
+    const pref = 'https://w.soundcloud.com/player/?url=https%3A'
+    const suf = '&amp;hide_related=false&amp;show_user=true&amp;show_reposts=false&amp;visual=true'
     const { music } = this.props
     return (
-      <div className='ui grid'>
-        <div className='two column row'>
-          {music.toList().toJS().map((p, k) => (
-            <div className='column stretched' key={k}>
+      <div className='ui centered grid'>
+        <div className='column fluid'>
+          <Card.Group itemsPerRow={3}>
+            {music.toList().toJS().map((p, k) => (
               <Card>
-                <Card.Content>
-                  <Embed url={p.location} />
-                </Card.Content>
+                <iframe
+                  style={{ border: 0 }}
+                  width='100%'
+                  height='300'
+                  scrolling='no'
+                  frameborder='no'
+                  src={`${pref}//api.soundcloud.com/tracks/${p.link}&amp;auto_play=false${suf}`} />
                 <Card.Content extra>
                   30 <Icon name='commenting' />
                   250 <Icon name='eye' />
                 </Card.Content>
               </Card>
-            </div>
           ))}
+          </Card.Group>
         </div>
       </div>
     )
