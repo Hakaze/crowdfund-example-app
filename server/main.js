@@ -10,6 +10,7 @@ const app = express()
 
 // Apply gzip compression
 app.use(compress())
+app.use(require('connect-history-api-fallback')())
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
