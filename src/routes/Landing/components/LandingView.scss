@@ -80,7 +80,7 @@
 .dim {
   height: 100%;
   background-color: rgba(0,0,0, 0.3);
-  padding-top: 160px;
+  padding-top: 8em;
 }
 
 .logo {
@@ -88,21 +88,21 @@
 }
 
 #modal-artist {
-  background-image: url('./artist-services.jpg');
+  background-image: url('https://fantank-api-dev.s3.amazonaws.com/app/artist-services.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   color: #FFFFFF;
 }
 
 #modal-scout {
-  background-image: url('./scout-services.jpg');
+  background-image: url('https://fantank-api-dev.s3.amazonaws.com/app/scout-services.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   color: #FFFFFF;
 }
 
 #modal-social {
-  background-image: url('./social.jpg');
+  background-image: url('https://fantank-api-dev.s3.amazonaws.com/app/social.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   color: #FFFFFF;

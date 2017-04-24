@@ -45,15 +45,15 @@ export default class WelcomeSection extends React.Component {
                   </div>
                 </div>
                 <div className='row'>
-                  <div className='ten wide left aligned column' style={{ paddingTop: '20px' }}>
+                  <div className='ten wide left aligned column' style={{ paddingTop: '10px' }}>
                     <InstantSearch size='huge' inputProps={inputProps} />
                   </div>
                 </div>
                 <div className='row'>
                   <div className='column'>
-                    <Divider hidden section />
+                    <Divider hidden />
                     <Header size='huge' inverted>T R E N D I N G</Header>
-                    <Divider hidden section />
+                    <Divider hidden />
                     <Button basic circular inverted size='huge'>Music</Button>
                     <Button basic circular inverted size='huge'>Modeling</Button>
                   </div>

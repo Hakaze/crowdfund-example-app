@@ -63,7 +63,7 @@ Then install dependencies and check to see it works. It is recommended that you 
 
 ```bash
 $ yarn install    # Install project dependencies
-$ yarn start      # Compile and launch (same as `npm start`)
+$ yarn dev      # Compile and launch (same as `npm run dev`)
 ```
 If everything works, you should see the following:
 
