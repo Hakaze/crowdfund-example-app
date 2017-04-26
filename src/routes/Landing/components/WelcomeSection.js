@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Image, Button, Header, Divider, Menu } from 'semantic-ui-react'
 import InstantSearch from 'components/InstantSearch'
 import { Link } from 'react-router'
+import { goTo } from 'util/location'
 import logoBig from './logo-big.svg'
 
 const inputProps = {
@@ -54,8 +55,8 @@ export default class WelcomeSection extends React.Component {
                     <Divider hidden />
                     <Header size='huge' inverted>T R E N D I N G</Header>
                     <Divider hidden />
-                    <Button basic circular inverted size='huge'>Music</Button>
-                    <Button basic circular inverted size='huge'>Modeling</Button>
+                    <Button onClick={() => goTo('/music')} basic circular inverted size='huge'>Music</Button>
+                    <Button onClick={() => goTo('/modeling')} basic circular inverted size='huge'>Modeling</Button>
                   </div>
                 </div>
               </div>

@@ -95,7 +95,8 @@ class SearchView extends Component {
   renderResults = (val, idx) => {
     const data = val.toJS()
     const title = data.stageName ? data.stageName : `${data.firstName} ${data.lastName}`
-    const description = `${data.artForm} ${data.accountType} - ${data.artFormType || data.primaryModelType}`
+    const secondary = `${data.artFormType || data.primaryModelType || data.primaryGenre}`
+    const desc = `${data.artForm} ${data.accountType} - ${secondary}`
     const image = data.profilePicture || '/img/avatar.png'
     const { username } = data
 
@@ -104,7 +105,7 @@ class SearchView extends Component {
         <Image key='image' shape='circular' src={image} size='tiny' />
         <List.Content>
           <List.Header content={title} />
-          <span style={{ fontSize: '1rem' }}>{description}</span>
+          <span style={{ fontSize: '1rem' }}>{desc}</span>
         </List.Content>
       </List.Item>
     )

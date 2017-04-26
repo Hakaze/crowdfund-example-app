@@ -14,6 +14,8 @@ import Account from './Account'
 import Chat from './Chat'
 import Search from './Search'
 import Contact from './Contact'
+import Music from './Music'
+import Modeling from './Modeling'
 
 const RequireAuth = UserAuthWrapper({
   authSelector: state => state.auth,
@@ -64,7 +66,9 @@ export const createRoutes = (store) => ({
         Crowdfunding,
         Pricing,
         Search,
-        Contact
+        Contact,
+        Music,
+        Modeling
       ]
     }
   ]

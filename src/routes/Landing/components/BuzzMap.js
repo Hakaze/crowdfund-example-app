@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Image, Header, Divider } from 'semantic-ui-react'
 import buzzMap from './map.png'
+import { goTo } from 'util/location'
 
 const inputProps = {
   fluid: true,
@@ -18,7 +19,7 @@ const BuzzMap = () => (
             <div className='sub header inverted centered'>Buzzmap</div>
           </h1>
           <Divider hidden />
-          <Image centered size='large' src={buzzMap} />
+          <Image onClick={() => goTo('/music')} centered size='large' src={buzzMap} />
         </div>
         <div className='column'>
           <h1 className='ui header inverted centered'>
@@ -26,7 +27,7 @@ const BuzzMap = () => (
             <div className='sub header inverted centered'>Buzzmap</div>
           </h1>
           <Divider hidden />
-          <Image centered size='large' src={buzzMap} />
+          <Image onClick={() => goTo('/modeling')} centered size='large' src={buzzMap} />
         </div>
       </div>
     </Container>
