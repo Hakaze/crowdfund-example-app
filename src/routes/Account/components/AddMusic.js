@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Button, Header, Icon, Item, Embed } from 'semantic-ui-react'
-import Dropzone from 'react-dropzone'
+import { Button, Header, Icon, Item, Form } from 'semantic-ui-react'
 
 class AddMusic extends Component {
 
@@ -10,96 +9,58 @@ class AddMusic extends Component {
   }
 
   state = {
-    files: []
+    scLink: ''
   }
 
-  onDrop = (addedFiles) => {
+  onChange = (e, { value }) => {
     this.setState({
-      files: addedFiles
+      scLink: value
     })
   }
 
-  onOpenClick = () => {
-    this.dropzone.open()
-  }
-
-  removeFile = (index) => {
-    const { files } = this.state
-    files.splice(index, 1)
+  removeFile = () => {
     this.setState({
-      files: files
+      scLink: ''
     })
   }
 
   save = () => {
-    const { files } = this.state
+    const { scLink } = this.state
     const { doSave, onSuccess } = this.props
-    doSave(files).then((data) => {
+    doSave(scLink).then((data) => {
       if (data.length) {
         onSuccess()
       }
     })
   }
 
-  renderMusic = (f, key) => {
-    return (
-      <Item key={key}>
-        <Item.Content verticalAlign='middle'>
-          <Item.Description>
-            {f.name}
-            <Button floated='right' color='red' icon='remove circle' onClick={() => this.removeFile(key)} />
-          </Item.Description>
-        </Item.Content>
-      </Item>
-    )
-  }
-
   render () {
-    const style = {
-      textAlign: 'center',
-      width: 200,
-      height: 200,
-      padding: '32px 16px',
-      margin: 16,
-      borderWidth: 2,
-      borderColor: '#666',
-      borderStyle: 'dashed',
-      borderRadius: 5
-    }
-    const activeStyle = {
-      borderStyle: 'solid',
-      borderColor: '#2ECC40',
-      backgroundColor: '#eee'
-    }
-
-    const dzProps = {
-      style,
-      activeStyle,
-      onDrop: this.onDrop,
-      ref: (node) => { this.dropzone = node },
-      multiple: false,
-      accept: 'audio/*'
-    }
-
-    const { files } = this.state
+    const { scLink } = this.state
+    const pref = 'https://w.soundcloud.com/player/?url=https%3A'
+    const suf = '&amp;hide_related=false&amp;show_user=true&amp;show_reposts=false&amp;visual=true'
     return (
       <div className='ui padded grid'>
         <div className='six wide column'>
-          <Dropzone {...dzProps}>
-            <Header as='h2' icon>
-              <Icon name='music' />
-              Drop Audio Files Here
-            </Header>
-          </Dropzone>
+          <Form>
+            <Form.Input
+              type='text'
+              name='scLink'
+              onChange={this.onChange}
+              value={scLink}
+              label='Soundcloud Song ID'
+            />
+          </Form>
         </div>
         <div className='ten wide column'>
-          {
-            files.length > 0
-              ? <Button primary onClick={this.save} fluid icon='upload' content='Upload' />
-              : <Button positive onClick={this.onOpenClick} fluid icon='add circle' content='Browse Files' />
-          }
-          {files.length > 0
-            ? <Item.Group divided relaxed>{files.map(this.renderMusic)}</Item.Group>
+          <Button disabled={!scLink} primary onClick={this.save} fluid icon='add circle' content='Add Music' />
+          {scLink
+            ? <iframe
+              style={{ border: 0 }}
+              width='100%'
+              height='280'
+              scrolling='no'
+              frameBorder='no'
+              src={`${pref}//api.soundcloud.com/tracks/${scLink}&amp;auto_play=false${suf}`} />
             : null
           }
         </div>

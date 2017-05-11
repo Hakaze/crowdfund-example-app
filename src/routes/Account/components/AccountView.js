@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import {
   Menu, Segment, Form, Breadcrumb, List, Checkbox, Button,
-  Modal, Image, Embed
+  Modal, Image, Embed, Card, Icon
 } from 'semantic-ui-react'
 import ethnicities from 'util/ethnicities'
 import incomeRanges from 'util/incomeRanges'
@@ -324,11 +324,16 @@ export default class AccountView extends Component {
           </div>
         </div>
         <div className='three column row'>
-          {videos.toList().toJS().map((p, k) => (
-            <div className='column stretched' key={k}>
-              <Embed id={p.link} source='vimeo' />
-            </div>
-          ))}
+          {videos.toList().toJS().map((p, k) => {
+            const source = p.link.indexOf('youtube') > -1 || p.link.indexOf('youtu.be') > -1
+              ? 'youtube' : 'vimeo'
+            const link = p.link.split('/')[3]
+            return (
+              <div className='column stretched' key={k}>
+                <Embed active autoplay={false} id={link} source={source} />
+              </div>
+            )
+          })}
         </div>
       </div>
     )
@@ -357,12 +362,31 @@ export default class AccountView extends Component {
             </Modal>
           </div>
         </div>
-        <div className='three column row'>
-          {music.toList().toJS().map((p, k) => (
-            <div className='column stretched' key={k}>
-              <Embed url={p.location} />
-            </div>
-          ))}
+        <div className='one column row'>
+          <div className='column fluid'>
+            <Card.Group itemsPerRow={2}>
+              {music.toList().toJS().map((p, k) => {
+                const pref = 'https://w.soundcloud.com/player/?url=https%3A'
+                const suf = '&amp;hide_related=false&amp;show_user=true&amp;show_reposts=false&amp;visual=true'
+                return (
+                  <Card key={k}>
+                    <iframe
+                      style={{ border: 0 }}
+                      width='100%'
+                      height='280'
+                      scrolling='no'
+                      frameBorder='no'
+                      src={`${pref}//api.soundcloud.com/tracks/${p.link}&amp;auto_play=false${suf}`} />
+                    <Card.Content extra>
+                      30 <Icon name='commenting' />
+                      250 <Icon name='eye' />
+                    </Card.Content>
+                  </Card>
+                )
+              }
+            )}
+            </Card.Group>
+          </div>
         </div>
       </div>
     )

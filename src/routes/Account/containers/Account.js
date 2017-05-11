@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     save: (data) => dispatch(saveAccountInfo(data)),
     uploadPhotos: (files) => dispatch(uploadPhotos(files[0])),
-    uploadMusic: (files) => dispatch(uploadMusic(files[0])),
+    uploadMusic: (track) => dispatch(uploadMusic(track)),
     uploadVideos: (video) => dispatch(uploadVideos(video))
   }
 }

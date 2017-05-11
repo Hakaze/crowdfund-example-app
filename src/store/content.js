@@ -55,10 +55,10 @@ export function uploadPhotos (file) {
 export function uploadMusic (file) {
   return (dispatch, getState) => {
     log.debug('Content::upload::initial')
-    const headers = { 'Content-Type': 'multipart/form-data' }
-    const formData = new FormData()
-    formData.append('file', file)
-    return api.post(`/user/tracks`, formData, { headers })
+    const track = JSON.stringify({
+      link: file
+    })
+    return api.post(`/user/tracks`, track)
       .then(({ data }) => {
         log.debug('Content::upload::response', data)
         dispatch(receiveMusic(data))
